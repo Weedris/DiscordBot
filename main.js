@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
 const fs = require('fs');
-const prefix = '/';
 const ytdl = require('ytdl-core');
+const client = new Discord.Client();
+const prefix = '/';
+
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
@@ -14,8 +15,6 @@ for(const file of commandFiles){
 
     client.commands.set(command.name, command);
 }
-
-
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -55,6 +54,9 @@ client.on('message', message => {
             break;
         case 'stop':
             stop(message, serverQueue);
+            break;
+        case 'download':
+            client.commands.get('download').execute(message, args);
             break;
         default:
             // console.log(command);
@@ -156,4 +158,4 @@ function play(guild, song) {
     serverQueue.textChannel.send(`Start playing: **${song.title}**`);
 }
 
-client.login('Nzc5Njk1MDYzODE5MjIzMDgx.X7kRnQ.aJGKn-pM986E0p8ma-erWMxKZ6I');
+client.login('Nzc5Njk1MDYzODE5MjIzMDgx.X7kRnQ.99l2N_ddYeSrC4UacS78RBnMe4k');
